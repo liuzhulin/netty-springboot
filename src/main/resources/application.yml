@@ -1,2 +1,6 @@
 server:
   port: 9087
+
+netty:
+  port: 9088
+  url: /hello

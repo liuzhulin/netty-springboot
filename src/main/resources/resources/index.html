@@ -8,7 +8,7 @@
 <script>
     var socket;
     if (window.WebSocket) {
-        socket = new WebSocket("ws://localhost:9097/hello");
+        socket = new WebSocket("ws://localhost:9088/hello");
         // ev收到服务器端发送的消息
         socket.onmessage = function (ev) {
             var rt = document.getElementById("responseText");
@@ -24,7 +24,7 @@
         //感知到连接关闭
         socket.onclose = function (ev) {
             var rt = document.getElementById("responseText");
-            rt.value = rt.value + "连接关闭了...\n";
+            rt.value = rt.value + "\n连接关闭了...\n";
         }
     } else {
         alert("当前浏览器不支持websocket")

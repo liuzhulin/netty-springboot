@@ -1,15 +1,19 @@
-package com.huawei.netty;
+package com.huaweisoft.handler;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+@Component
+@ChannelHandler.Sharable
+public class MyWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     private static ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
