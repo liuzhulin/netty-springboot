@@ -1,5 +1,6 @@
 package com.huaweisoft.handler;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -21,11 +22,16 @@ public class MyWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWeb
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) {
         System.out.println("[" + ctx.channel().id().asLongText() + "]" + msg.text());
         //回复消息
-        //ctx.channel().writeAndFlush(new TextWebSocketFrame("服务器当前时间：" + LocalDateTime.now() + " " + msg.text()));
-        clients.writeAndFlush(new TextWebSocketFrame("[" + LocalDateTime.now() + "]" + msg.text()));
+        Channel iChannel = ctx.channel();
+        for (Channel channel : clients) {
+            if (channel == iChannel) {
+                channel.writeAndFlush(new TextWebSocketFrame("自己[" + LocalDateTime.now() + "]" + msg.text()));
+            } else {
+                channel.writeAndFlush(new TextWebSocketFrame("别人[" + LocalDateTime.now() + "]" + msg.text()));
+            }
+        }
     }
 
-    //web客户端连接后，触发该方法
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         //id表示唯一的值，longText是唯一的
@@ -45,5 +51,10 @@ public class MyWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWeb
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+
     }
 }
