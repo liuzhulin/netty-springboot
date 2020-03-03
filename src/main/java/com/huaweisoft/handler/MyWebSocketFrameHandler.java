@@ -23,6 +23,7 @@ public class MyWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWeb
         System.out.println("[" + ctx.channel().id().asLongText() + "]" + msg.text());
         //回复消息
         Channel iChannel = ctx.channel();
+
         for (Channel channel : clients) {
             if (channel == iChannel) {
                 channel.writeAndFlush(new TextWebSocketFrame("自己[" + LocalDateTime.now() + "]" + msg.text()));
@@ -35,20 +36,18 @@ public class MyWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWeb
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) {
         //id表示唯一的值，longText是唯一的
-        System.out.println("handlerAdded 被调用" + ctx.channel().id().asLongText());
-        //shortText不一定是唯一的
-        System.out.println("handlerAdded 被调用" + ctx.channel().id().asShortText());
+        System.out.println("handlerAdded 被调用，id：" + ctx.channel().id().asLongText());
 
         clients.add(ctx.channel());
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) {
-        System.out.println("handlerRemoved 被调用" + ctx.channel().id().asLongText());
+        System.out.println("handlerRemoved 被调用，id：" + ctx.channel().id().asLongText());
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }
