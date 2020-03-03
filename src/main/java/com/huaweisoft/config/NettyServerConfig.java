@@ -1,5 +1,6 @@
 package com.huaweisoft.config;
 
+import com.huaweisoft.handler.MetricHandler;
 import com.huaweisoft.handler.MyWebSocketFrameHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -58,6 +59,8 @@ public class NettyServerConfig {
                      * 3.WebSocketServerProtocolHandler核心功能是将http协议升级为websocket协议保持长连接
                      */
                     pipeline.addLast(new WebSocketServerProtocolHandler(nettyUrl));
+                    pipeline.addLast(new LoggingHandler(LogLevel.INFO));
+                    pipeline.addLast("metricHandler", new MetricHandler());
                     //自定义handler，处理业务逻辑
                     pipeline.addLast(new MyWebSocketFrameHandler());
                 }

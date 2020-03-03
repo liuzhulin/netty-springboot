@@ -34,12 +34,23 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.20.Final</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.version}</version>
         </dependency>
+        <!-- 数据可视化 -->
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-jmx</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
     </dependencies>
 
 
