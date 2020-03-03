@@ -8,11 +8,9 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Component
 @ChannelHandler.Sharable
 public class MyWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
@@ -47,7 +45,7 @@ public class MyWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWeb
     }
 
     @Override
-public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
         ctx.close();
     }

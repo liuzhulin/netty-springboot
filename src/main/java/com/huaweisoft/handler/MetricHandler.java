@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Component
 @ChannelHandler.Sharable
 public class MetricHandler extends ChannelDuplexHandler {
     private AtomicLong totalConnectionNumber = new AtomicLong();
@@ -27,8 +26,8 @@ public class MetricHandler extends ChannelDuplexHandler {
         });
 
         //以控制台的形式打印连接数
-        ConsoleReporter consoleReporter = ConsoleReporter.forRegistry(metricRegistry).build();
-        consoleReporter.start(5, TimeUnit.SECONDS);
+        /*ConsoleReporter consoleReporter = ConsoleReporter.forRegistry(metricRegistry).build();
+        consoleReporter.start(5, TimeUnit.SECONDS);*/
 
         //通过jmx形式显示连接数
         JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();

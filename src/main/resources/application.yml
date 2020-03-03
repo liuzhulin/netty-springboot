@@ -1,6 +1,10 @@
 server:
   port: 9087
 
+logging:
+  level:
+    root: info
+
 netty:
   port: 9088
   url: /hello
